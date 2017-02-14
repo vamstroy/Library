@@ -1,0 +1,51 @@
+<html>
+	<head>
+		<script type="text/javascript" src="angular.min.js"></script>
+		<script type="text/javascript" src="angular-drag-and-drop-lists.min.js"></script>
+		<script>
+			var app1=angular.module('dndApp',['dndLists']);
+			app1.controller('Ctrl1',function($scope) {
+				$scope.box={
+					selected : null,
+					lists : {
+						A:[
+						  {
+					        label: "Item A1"
+					      },
+
+					      {
+					        label: "Item A2"
+					      },
+
+					      {
+					        label: "Item A3"
+					      },
+					      {
+					        label: "Item A4"
+					      },
+					      {
+					        label: "Item A5"
+					      }
+						]
+					}
+				}
+			});
+
+		</script>
+	</head>
+	<body ng-app="dndApp">
+		<div ng-controller="Ctrl1">
+			<ul dnd-list="box.lists.A">
+				<li ng-repeat="item in box.lists.A"
+					dnd-draggable="item"        
+					dnd-moved ="box.lists.A.splice($index,1)"
+					dnd-effect-allowed="move"
+					dnd-selected="box.selected = item"
+					ng-class="{'selected': box.selected === item}">
+					{{item.label}}
+				</li>
+			</ul>
+			
+		</div>
+	</body>
+</html>
